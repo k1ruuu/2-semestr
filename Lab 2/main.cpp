@@ -7,7 +7,6 @@ private:
 	char* m_str = nullptr;
 	friend istream& operator>>(istream& is, String& str);
 	friend ostream& operator << (ostream& os, const String& str);
-	friend String operator+(const String& str1, const String& str2);
 public:
 	String() = default;
 
@@ -43,6 +42,12 @@ public:
 		m_str = newStr;
 		m_size = strlen(m_str);
 		return *this;
+	}
+
+	String operator+(const String& str2) {
+		String result(this -> m_str);
+		result += str2;
+		return result;
 	}
 
 	char& operator[](int c) {
@@ -114,11 +119,7 @@ ostream& operator << (ostream& os, const String& str)
 	os << str.m_str;
 	return os;
 }
-String operator+(const String& str1, const String& str2) {
-	String result(str1);
-	result += str2;
-	return result;
-}
+
 
 int  main()
 {
