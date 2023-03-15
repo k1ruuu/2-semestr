@@ -47,7 +47,7 @@ public:
 
 	char& operator[](int c) {
 		if (c < 0 || c >= m_size) {
-			throw out_of_range("c out of range");
+			throw out_of_range("index out of range");
 		}
 		return m_str[c];
 	}
@@ -83,7 +83,7 @@ public:
 
 	char& at(int c) {
 		if (c < 0 || c >= m_size) {
-			throw out_of_range("c out of range");
+			throw out_of_range("index out of range");
 		}
 		return m_str[c];
 	}
@@ -99,7 +99,7 @@ istream& operator >> (istream& is, String& str) {
 	is >> masc;
 	int c = 0;
 	for (int i = 0; i < 1000; i++) {
-		if (masc[i] == '\0') {
+		if (masc[i] == '\0' && masc[i] != '\n') {
 			c = i;
 			break;
 		}
