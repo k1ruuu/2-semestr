@@ -115,6 +115,4 @@ int main() {
     Complex c7;
     cin >> c7;
     cout << c7 << endl;
-
-    return 0;
 }
