@@ -9,32 +9,32 @@ private:
     friend istream& operator>>(istream& is, Complex& c);
 
 public:
-    Complex() = default; // базовый конструктор
+    Complex() = default; // ГЎГ Г§Г®ГўГ»Г© ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г°
 
-    Complex(double r, double i) : real(r), imag(i) {} // конструктор
+    Complex(double r, double i) : real(r), imag(i) {} // ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г°
 
-    Complex(const Complex& other) : real(other.real), imag(other.imag) {} // конструктор копирования
+    Complex(const Complex& other) : real(other.real), imag(other.imag) {} // ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г° ГЄГ®ГЇГЁГ°Г®ГўГ Г­ГЁГї
 
-    // Оператор присваивания копированием
+    // ГЋГЇГҐГ°Г ГІГ®Г° ГЇГ°ГЁГ±ГўГ ГЁГўГ Г­ГЁГї ГЄГ®ГЇГЁГ°Г®ГўГ Г­ГЁГҐГ¬
     Complex& operator=(const Complex& other) {
         real = other.real;
         imag = other.imag;
         return *this;
     }
 
-    //Оператор +=
+    //ГЋГЇГҐГ°Г ГІГ®Г° +=
     Complex& operator+=(const Complex& other) {
         real += other.real;
         imag += other.imag;
         return *this;
     }
 
-    //Операторы +
+    //ГЋГЇГҐГ°Г ГІГ®Г°Г» +
     Complex operator+(const Complex& other)  {
         return Complex(real + other.real, imag + other.imag);
     }
 
-    //Операторы *= 
+    //ГЋГЇГҐГ°Г ГІГ®Г°Г» *= 
     Complex& operator*=(const Complex& other) {
         double r = real * other.real - imag * other.imag;
         double i = real * other.imag + imag * other.real;
@@ -43,38 +43,38 @@ public:
         return *this;
     }
 
-    //Оператор *
+    //ГЋГЇГҐГ°Г ГІГ®Г° *
     Complex operator*(const Complex& other)  {
         return Complex(real * other.real - imag * other.imag,
             real * other.imag + imag * other.real);
     }
 
-    //Оператор ++ префиксный
+    //ГЋГЇГҐГ°Г ГІГ®Г° ++ ГЇГ°ГҐГґГЁГЄГ±Г­Г»Г©
     Complex& operator++() {
         ++real;
         return *this;
     }
 
-    //Оператор ++ постфиксный
+    //ГЋГЇГҐГ°Г ГІГ®Г° ++ ГЇГ®Г±ГІГґГЁГЄГ±Г­Г»Г©
     Complex operator++(int) {
         Complex temp(*this);
         ++real;
         return temp;
     }
 
-    ~Complex() {} // деструктор
+    ~Complex() {} // Г¤ГҐГ±ГІГ°ГіГЄГІГ®Г°
 };
 
-//Оператор вывода
+//ГЋГЇГҐГ°Г ГІГ®Г° ГўГ»ГўГ®Г¤Г 
 ostream& operator<<(ostream& os, const Complex& c) {
     if (c.imag >= 0)
-        os << c.real << " + " << c.imag << "i";
+        os << c.real << "+" << c.imag << "i";
     if (c.imag < 0)
         os << c.real << c.imag << "i";
     return os;
 }
 
-//Оператор ввода
+//ГЋГЇГҐГ°Г ГІГ®Г° ГўГўГ®Г¤Г 
 istream& operator>>(istream& is, Complex& c) {
     cout << "Real part: ";
     is >> c.real;
