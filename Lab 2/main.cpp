@@ -15,12 +15,12 @@ public:
 
 	String(char c, size_t size) : m_size(size), m_str(new char[size + 1]) {
 		fill(m_str, m_str + m_size, c);
-		m_str[m_size] = 0;
+		m_str[m_size] = '\0';
 	}
 
 	String(char* str) : m_size(strlen(str)), m_str(new char[m_size + 1]) {
 		copy(str, str + m_size + 1, m_str);
-		m_str[m_size] = 0;
+		m_str[m_size] = '\0';
 	}
 
 	String(const String& other) : String(other.m_str) {
@@ -45,11 +45,11 @@ public:
 		return *this;
 	}
 
-	char& operator[](int index) {
-		if (index < 0 || index >= m_size) {
-			throw out_of_range("Index out of range");
+	char& operator[](int c) {
+		if (c < 0 || c >= m_size) {
+			throw out_of_range("c out of range");
 		}
-		return m_str[index];
+		return m_str[c];
 	}
 
 	bool operator==(const String& other) {
@@ -81,11 +81,11 @@ public:
 		return m_str;
 	}
 
-	char& at(int index) {
-		if (index < 0 || index >= m_size) {
-			throw out_of_range("Index out of range");
+	char& at(int c) {
+		if (c < 0 || c >= m_size) {
+			throw out_of_range("c out of range");
 		}
-		return m_str[index];
+		return m_str[c];
 	}
 
 	~String() {
@@ -94,10 +94,19 @@ public:
 		}
 	}
 };
-istream& operator>>(istream& is, String& str) {
-	char masc[1000];
+istream& operator >> (istream& is, String& str) {
+	char* masc = new char[1000];
 	is >> masc;
-	str = String(masc);
+	int c = 0;
+	for (int i = 0; i < 1000; i++) {
+		if (masc[i] == '\0') {
+			c = i;
+			break;
+		}
+	}
+	str.m_size = c + 1;
+	str.m_str = new char[str.m_size + 1];
+	copy(masc, masc + c + 1, str.m_str);
 	return is;
 }
 ostream& operator << (ostream& os, const String& str)
