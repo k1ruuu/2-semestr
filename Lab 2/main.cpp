@@ -5,6 +5,9 @@ class String {
 private:
 	size_t m_size = 0;
 	char* m_str = nullptr;
+	friend istream& operator>>(istream& is, String& str);
+	friend ostream& operator << (ostream& os, const String& str);
+	friend String operator+(const String& str1, const String& str2);
 public:
 	String() = default;
 
@@ -42,12 +45,6 @@ public:
 		return *this;
 	}
 
-	friend String operator+(const String& str1, const String& str2) {
-		String result(str1);
-		result += str2;
-		return result;
-	}
-
 	char& operator[](int index) {
 		if (index < 0 || index >= m_size) {
 			throw out_of_range("Index out of range");
@@ -67,18 +64,6 @@ public:
 		return strcmp(m_str, other.m_str) > 0;
 	}
 	
-	friend ostream& operator << (std::ostream& os, const String& str)
-	{
-		os << str.m_str;
-		return os;
-	}
-
-	friend std::istream& operator>>(std::istream& is, String& str) {
-		char masc[1000];
-		is >> masc;
-		str = String(masc);
-		return is;
-	}
 	int find(char c) {
 		for (int i = 0; i < m_size; i++) {
 			if (m_str[i] == c) {
@@ -98,7 +83,7 @@ public:
 
 	char& at(int index) {
 		if (index < 0 || index >= m_size) {
-			throw std::out_of_range("Index out of range");
+			throw out_of_range("Index out of range");
 		}
 		return m_str[index];
 	}
@@ -109,6 +94,22 @@ public:
 		}
 	}
 };
+istream& operator>>(istream& is, String& str) {
+	char masc[1000];
+	is >> masc;
+	str = String(masc);
+	return is;
+}
+ostream& operator << (ostream& os, const String& str)
+{
+	os << str.m_str;
+	return os;
+}
+String operator+(const String& str1, const String& str2) {
+	String result(str1);
+	result += str2;
+	return result;
+}
 
 int  main()
 {
