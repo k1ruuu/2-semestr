@@ -30,7 +30,7 @@ public:
 		time_t t = time(nullptr);
 		static char time_str[20];
 		strftime(time_str, sizeof(time_str),
-			"%Y-%m-%d %H:%M:%S", localtime(&t));
+			"%d-%m-%Y %H:%M:%S", localtime(&t));
 
 		if (m_level == LogLevel::DEBUG)
 			cerr << "\033[1;32m" << "[Info]" << time_str << " " << msg << endl;
@@ -43,7 +43,7 @@ public:
 		time_t t = time(nullptr);
 		static char time_str[20];
 		strftime(time_str, sizeof(time_str),
-			"%Y-%m-%d %H:%M:%S", localtime(&t));
+			"%d-%m-%Y %H:%M:%S", localtime(&t));
 
 		if (m_level == LogLevel::DEBUG)
 			cerr << "\033[1;36m" << "[Debug]" << time_str << " " << msg << endl;
@@ -56,7 +56,7 @@ public:
 		time_t t = time(nullptr);
 		static char time_str[20];
 		strftime(time_str, sizeof(time_str),
-			"%Y-%m-%d %H:%M:%S", localtime(&t));
+			"%d-%m-%Y %H:%M:%S", localtime(&t));
 
 		if (m_level == LogLevel::DEBUG)
 			cerr << "\033[1;31m" << "[Error]" << time_str << " " << msg << endl;
@@ -69,7 +69,7 @@ public:
 		time_t t = time(nullptr);
 		static char time_str[20];
 		strftime(time_str, sizeof(time_str),
-			"%Y-%m-%d %H:%M:%S", localtime(&t));
+			"%d-%m-%Y %H:%M:%S", localtime(&t));
 
 		if (m_level == LogLevel::DEBUG)
 			cerr << "\033[1;31m" << "[FatalError]" << time_str << " " << msg << endl;
