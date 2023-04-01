@@ -9,6 +9,13 @@ enum class LogLevel {
 	RELEASE
 };
 
+enum class LogErrType {
+	INFO,
+	DEBUG,
+	ERROR,
+	FATALERROR
+};
+
 class Logger {
 private:
 
@@ -25,55 +32,44 @@ public:
 		m_out.open(path);
 	}
 
-	static void Info(const string& msg) {
-
+	static char* GetCurrTime()
+	{
 		time_t t = time(nullptr);
 		static char time_str[20];
 		strftime(time_str, sizeof(time_str),
 			"%d-%m-%Y %H:%M:%S", localtime(&t));
-
-		if (m_level == LogLevel::DEBUG)
-			cerr << "\033[1;32m" << "[Info]" << time_str << " " << msg << endl;
-		m_out << time_str << " " << msg << endl;
-		m_out.flush();
+		return time_str;
 	}
 
-	static void Debug(const string& msg) {
+	static void PrintLog(const string& msg, LogErrType type) {
 
-		time_t t = time(nullptr);
-		static char time_str[20];
-		strftime(time_str, sizeof(time_str),
-			"%d-%m-%Y %H:%M:%S", localtime(&t));
+		if (type == LogErrType::INFO) {
+			if (m_level == LogLevel::DEBUG) {
+				cerr << "\033[1;32m" << "[Info]" << GetCurrTime() << " " << msg << endl;
+			}
+			m_out << "[Info]" << GetCurrTime() << " " << msg << endl;
+			m_out.flush();
+		}
 
-		if (m_level == LogLevel::DEBUG)
-			cerr << "\033[1;36m" << "[Debug]" << time_str << " " << msg << endl;
-		m_out << time_str << " " << msg << endl;
-		m_out.flush();
-	}
+		else if (type == LogErrType::DEBUG) {
+			if (m_level == LogLevel::DEBUG)
+				cerr << "\033[1;36m" << "[Debug]" << GetCurrTime() << " " << msg << endl;
+			m_out << "[Debug]" << GetCurrTime() << " " << msg << endl;
+			m_out.flush();
+		}
 
-	static void Error(const string& msg) {
+		else if (type == LogErrType::ERROR) {
+			if (m_level == LogLevel::DEBUG)
+				cerr << "\033[1;31m" << "[Error]" << GetCurrTime() << " " << msg << endl;
+			m_out << "[Error]" << GetCurrTime() << " " << msg << endl;
+			m_out.flush();
+		}
 
-		time_t t = time(nullptr);
-		static char time_str[20];
-		strftime(time_str, sizeof(time_str),
-			"%d-%m-%Y %H:%M:%S", localtime(&t));
-
-		if (m_level == LogLevel::DEBUG)
-			cerr << "\033[1;31m" << "[Error]" << time_str << " " << msg << endl;
-		m_out << time_str << " " << msg << endl;
-		m_out.flush();
-	}
-
-	static void FatalError(const string& msg) {
-
-		time_t t = time(nullptr);
-		static char time_str[20];
-		strftime(time_str, sizeof(time_str),
-			"%d-%m-%Y %H:%M:%S", localtime(&t));
-
-		if (m_level == LogLevel::DEBUG)
-			cerr << "\033[1;31m" << "[FatalError]" << time_str << " " << msg << endl;
-		m_out << time_str << " " << msg << endl;
-		m_out.flush();
+		else if (type == LogErrType::FATALERROR) {
+			if (m_level == LogLevel::DEBUG)
+				cerr << "\033[1;31m" << "[FatalError]" << GetCurrTime() << " " << msg << endl;
+			m_out << "[FatalError]" << GetCurrTime() << " " << msg << endl;
+			m_out.flush();
+		}
 	}
 };

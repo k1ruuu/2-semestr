@@ -10,8 +10,8 @@ using namespace std;
 int main() {
 	Logger::SetLogLevel(LogLevel::DEBUG);
 	Logger::SetLogPath("logs.txt");
-	Logger::Info("Programm started");
-	Logger::Debug("chto-to proishodit");
-	Logger::Error("ERORRRRRRRRRRRR");
-	Logger::FatalError("Crashed...");
+	Logger::PrintLog("Programm started", LogErrType::INFO);
+	Logger::PrintLog("chto-to proishodit", LogErrType::DEBUG);
+	Logger::PrintLog("ERORRRRRRRRRRRR", LogErrType::ERROR);
+	Logger::PrintLog("Crashed...", LogErrType::FATALERROR);
 }
