@@ -78,6 +78,24 @@ public:
 		return *this;
 	}
 
+	Matrix& operator++ (t) {
+		for (int h = 0; h < i; h++) {
+			for (int k = 0; k < j; k++) {
+				++matrix_[h][k];
+			}
+		}
+		return *this;
+	}
+
+	auto& operator[](int index) {
+		if (index < 0 || index >= I) {
+			throw out_of_range("index out of range");
+		}
+		return matrix_[index];
+	}
+
+	~Matrix(){}
+
 };
 template<typename t, unsigned int I, unsigned int J>
 ostream& operator<< (ostream& out, const Matrix<t, I, J>& mat) {
@@ -134,5 +152,11 @@ int main() {
 	m7 *= m1;
 	cout << m7;
 	cout << endl;
+	m7++;
+	cout << m7;
+	cout << endl;
+	cout << m7[1][1];
+	cout << endl;
+
 
 }
