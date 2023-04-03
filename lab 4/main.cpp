@@ -94,6 +94,25 @@ public:
 		return matrix_[index];
 	}
 
+	t determinant() {
+		if (I == J) {
+			t det = 0;
+			if (I == 1) {
+				det = matrix_[0][0];
+			}
+			else if (I == 2) {
+				det = matrix_[0][0] * matrix_[1][1] - matrix_[0][1] * matrix_[1][0];
+			}
+			else if (I == 3) {
+				det = matrix_[0][0] * matrix_[1][1] * matrix_[2][2] + matrix_[1][0] * matrix_[2][1] * matrix_[0][2] + matrix_[2][0] * matrix_[0][1] * matrix_[1][2]
+					- matrix_[0][2] * matrix_[1][1] * matrix_[2][0] - matrix_[1][2] * matrix_[2][1] * matrix_[0][0] - matrix_[2][2] * matrix_[0][1] * matrix_[1][0];
+			}
+			return det;
+		}
+		else
+			cout << "No";
+	}
+
 	~Matrix(){}
 
 };
@@ -158,5 +177,21 @@ int main() {
 	cout << m7[1][1];
 	cout << endl;
 
+	Matrix <int, 1, 1> m8;
+	cout << "1 1" << endl;
+	cin >> m8;
+	cout << m8.determinant() << endl;
+	Matrix <int, 2, 2> m9;
+	cout << "2 2" << endl;
+	cin >> m9;
+	cout << m9.determinant() << endl;
+	Matrix <int, 3, 3> m10;
+	cout << "3 3" << endl;
+	cin >> m10;
+	cout << m10.determinant() << endl;
+	Matrix <int, 3, 2> m11;
+	cout << "3 2" << endl;
+	cin >> m11;
+	cout << m11.determinant() << endl;
 
 }
