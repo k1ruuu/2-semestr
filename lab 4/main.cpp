@@ -51,32 +51,49 @@ public:
 		return *this;
 	}
 
-	Matrix operator* (const Matrix<t, I, J>& other) {
-		Matrix<t, I, J> result;
-		for (int h = 0; h < I; h++) {
-			for (int k = 0; k < J; k++) {
-				result.matrix_[h][k] = 0;
-				for (int l = 0; l < I; l++) {
-					result.matrix_[h][k] += matrix_[h][l] * other.matrix_[l][k];
+	t get(unsigned int i, unsigned int j) const {
+		return matrix_[i][j];
+	}
+
+	t& set(unsigned int i, unsigned int j) {
+		return matrix_[i][j];
+	}
+
+	template<unsigned int U, unsigned int V>
+	Matrix<t, I, V> operator* (const Matrix<t, U, V>& other) {
+		Matrix<t, I, V> result;
+		if (J == U) {
+			for (int h = 0; h < I; h++) {
+				for (int k = 0; k < V; k++) {
+					result.set(h, k) = 0;
+					for (int l = 0; l < J; l++) {
+						result.set(h, k) += matrix_[h][l] * other.get(l, k);
+					}
 				}
 			}
+
 		}
 		return result;
 	}
 
-	Matrix& operator*= (const Matrix<t, I, J>& other) {
-		Matrix<t, I, J> result;
-		for (int h = 0; h < I; h++) {
-			for (int k = 0; k < J; k++) {
-				result.matrix_[h][k] = 0;
-				for (int l = 0; l < I; l++) {
-					result.matrix_[h][k] += matrix_[h][l] * other.matrix_[l][k];
+
+	template<unsigned int U, unsigned int V>
+	Matrix<t, I, V>& operator*= (const Matrix<t, U, V>& other) {
+		Matrix<t, I, V> temp = *this;
+		if (J == U) {
+			for (int h = 0; h < I; h++) {
+				for (int k = 0; k < V; k++) {
+					matrix_[h][k] = 0;
+					for (int l = 0; l < J; l++) {
+						matrix_[h][k] += temp.matrix_[h][l] * other.matrix_[l][k];
+					}
 				}
 			}
 		}
-		*this = result;
 		return *this;
 	}
+
+
 
 	Matrix& operator++ (t) {
 		for (int h = 0; h < i; h++) {
@@ -159,11 +176,11 @@ int main() {
 	cout << m4;
 	cout << endl;
 
-	Matrix <int, 2, 2> m5;
-	m5 = m1;
-	Matrix <int, 2, 2> m6;
-	m6 = m1 * m5;
-	cout << m6;
+	Matrix <int, 3, 2> m5;
+	cin >> m5;
+	Matrix <int, 2, 3> mm;
+	cin >> mm;
+	cout << "*: " << m5 * mm;
 	cout << endl;
 	
 	Matrix <int, 2, 2> m7;
