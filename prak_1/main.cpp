@@ -1,9 +1,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include<iostream>
-#include<vector>
-#include<string>
 using namespace std;
 
 class shifr {
@@ -22,7 +19,7 @@ public:
 	}
 	void encode(vector <int> key){
 		if (check(key) == false) {
-			cout << "Îøèáêà â êëþ÷å";
+			cout << "ÃŽÃ¸Ã¨Ã¡ÃªÃ  Ã¢ ÃªÃ«Ã¾Ã·Ã¥";
 		}
 		else {
 			string str;
@@ -51,10 +48,10 @@ public:
 	}
 	void decode(vector <int> key) {
 		if (text.size() > 30) {
-			cout << "Ìíîãî ñëîâ" << endl;
+			cout << "ÃŒÃ­Ã®Ã£Ã® Ã±Ã«Ã®Ã¢" << endl;
 		}
 		if (check(key) == false) {
-			cout << "Îøèáêà â êëþ÷å";
+			cout << "ÃŽÃ¸Ã¨Ã¡ÃªÃ  Ã¢ ÃªÃ«Ã¾Ã·Ã¥";
 		}
 		else {
 			for (int i = 0; i < key.size(); i++) {
